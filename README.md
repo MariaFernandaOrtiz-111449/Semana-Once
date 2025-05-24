@@ -1,164 +1,110 @@
 # Apuntes_Semana Once
-Apuntes control de movimiento - Segundo Corte - Novena Semana_ljajskdjkajksdljkasd
+Apuntes control de movimiento - Tercer Corte - Onceava Semana
 
-# Control de Movimiento (Diseño de Transmisión)
+Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Felipe Arteaga Escalante
 
-**Introducción al Diseño de Transmisión**
+# Guía para uso de gemelos digitales de Quanser
 
-El diseño de transmisión se encarga de transferir potencia y movimiento entre componentes mecánicos, utilizando elementos como engranajes, correas y cadenas. Su objetivo es garantizar eficiencia, durabilidad y seguridad en sistemas como vehículos, maquinaria y robótica. Un diseño adecuado optimiza el rendimiento, reduce el desgaste y mejora la eficiencia energética, combinando principios de cinemática, dinámica y resistencia de materiales.
+**Introducción al trabajo de Quanser**
 
-## 1. Requerimientos de diseño
+Las plantas Quanser son plataformas físicas diseñadas para la enseñanza y la investigación en el campo de la ingeniería de control, mecatrónica, automatización y robótica. Desarrolladas por la empresa canadiense Quanser, estas plantas permiten a estudiantes e investigadores experimentar de forma práctica con sistemas dinámicos reales, implementando y validando algoritmos de control en tiempo real.
 
-Para que el diseño en control de movimiento no tenga ningún inconveniente se requiere una excelente selección de un motor y la transmisión del sistema para que el movimiento sea llevado a cabo en la carga o una herramienta. Para este diseño se deben tener en cuenta los siguientes indicadores:
+Estas plantas están diseñadas para integrarse fácilmente con herramientas como MATLAB/Simulink y el entorno QUARC, lo cual permite una rápida conexión entre la teoría matemática y la aplicación práctica. Gracias a esta compatibilidad, es posible diseñar, simular y probar controladores de manera eficiente, utilizando modelos precisos y sensores de alta resolución.
 
-* Garantizar que el torque del motor a su máxima velocidad sea suficiente para la aplicación, considerando un margen de seguridad.
+Entre las plantas más utilizadas se encuentran el péndulo invertido, el ball and beam, los helicópteros de 2 y 3 grados de libertad, sistemas de levitación magnética, y la Qube-Servo 2, entre muchas otras. Cada una de estas plantas representa un desafío particular en términos de modelado y control, lo que las convierte en herramientas ideales para la formación en control clásico, control moderno, robusto, adaptativo y no lineal.
 
-* Verificar que la relación de inercia entre el motor y la carga sea la adecuada para un desempeño óptimo.
+El uso de plantas Quanser permite no solo la comprensión profunda de los conceptos de control, sino también el desarrollo de habilidades prácticas esenciales en ingeniería, como el diseño de sistemas en tiempo real, el análisis de señales, la identificación de parámetros y la validación experimental.
 
-* Asegurar que el diseño cumpla con criterios adicionales como costo, precisión y tiempos de ciclo, según los requisitos del sistema.
+En este informe se presenta un estudio sobre una de estas plantas, detallando su comportamiento dinámico, el diseño del modelo matemático correspondiente, la implementación del controlador y la evaluación de su desempeño bajo condiciones reales de operación.
 
-Existen diferentes tipos de problemas que nos enfrentamos al momento de diseñar en el cual se especifíca que es lo que se debe solucionar:
 
-* Teniendo el Movimiento de carga deseado	se busca -> dimensionar la Transmisión y motor.
+## 1. Funcionamiento Motor Qube-Servo 2
 
-* Teniendo el Motor y transmisión existentes	se busca -> dimensionar el Movimiento de carga resultante.
+El Qube-Servo 2 es una plataforma didáctica desarrollada por Quanser que permite la implementación y análisis de sistemas de control en tiempo real. Este dispositivo compacto integra un servomotor de precisión y sensores de alta resolución, y está diseñado para facilitar la experimentación con una amplia variedad de algoritmos de control, tanto clásicos como modernos.
 
-* Teniendo el Motor existente, movimiento de carga deseado se busca -> dimensionar la Transmisión.
+Entre las aplicaciones más comunes del Qube-Servo 2 se encuentran el control de velocidad, el seguimiento de posición, y, especialmente, el estudio del péndulo invertido rotacional, un sistema altamente no lineal e inestable que ha sido durante décadas un caso de estudio fundamental en el área de control automático. Gracias a su arquitectura modular y su compatibilidad con entornos como MATLAB/Simulink y QUARC, el Qube-Servo 2 brinda una experiencia práctica que complementa la teoría de control con experimentación física de alta fidelidad.
 
-* Teniendo el Movimiento de carga deseado, transmisión se busca-> dimensionar el Motor.
+Esta planta es ampliamente utilizada en cursos de ingeniería de control, mecatrónica y robótica, debido a su versatilidad, facilidad de uso y capacidad para demostrar conceptos clave como la realimentación, la linealización, el control PID, el control óptimo (LQR), y el control adaptativo, entre otros.
 
-## 2. Inercia y Torque Reflejado
+En este informe se presenta el análisis, diseño e implementación de distintos controladores aplicados al Qube-Servo 2, con el objetivo de comprender su dinámica, mejorar su rendimiento y validar los modelos teóricos mediante pruebas experimentales.
 
-**Inercia Reflejada**: Es la inercia equivalente que el motor "siente" debido a la carga y los elementos de transmisión. Se calcula ajustando la inercia de la carga $J_{L}$ a la referencia del motor mediante la relación de transmisión (N):
+## 2. Descarga conexión Planta Quanser
 
-$J_{r}:J_{L}*N^{2}$
+Para el desarrollo del trabajo y el diseño del modelo de la planta, se utiliza una herramienta digital conocida como gemelo digital, la cual permite simular el comportamiento de la planta seleccionada de manera virtual. Esta simulación facilita la comprensión de la dinámica del sistema y permite implementar y probar algoritmos de control antes de aplicarlos en la planta física.
 
-Donde N es la relación que contempla la transmisión
+Para acceder a esta herramienta y comenzar a trabajar con el sistema, es necesario seguir los siguientes pasos:
 
-**Torque Reflejado:** Es el torque que el motor debe generar para mover la carga a través de la transmisión. Se obtiene transformando el torque de la carga $T_{L}$ a la referencia del motor:
+* Registrarse en el portal oficial de Quanser a través del siguiente enlace: https://portal.quanser.com/Accounts/Login?returnUrl=/, utilizando su correo institucional.
 
-$$T_{r}:\frac{T_{L}}{N}$$
+![image](https://github.com/user-attachments/assets/7c05bc20-ff1d-4b9f-b47a-a8497eacbca8)
 
-## 3. Conceptos de Transmisión Engranajes
+*Imagen 1. Ingreso de datos Quanser Web*
 
-La relación de engranajes determina cómo se transmite el movimiento y el torque entre engranajes de distintos tamaños en un sistema mecánico. Se define como la razón entre el número de dientes o los diámetros de los engranajes involucrados:
+Una vez se haya ingresado al portal de Quanser, el sistema solicitará algunos datos personales para la creación del perfil de usuario. Este paso es necesario para poder descargar el software requerido para el uso y desarrollo de proyectos con las plantas virtuales.
 
-$$N = \frac{Z_{conducido}}{Z_{conductor}} = \frac{D_{conducido}}{D_{conductor}}$$
+Después de completar el registro y descargar el archivo correspondiente desde el sitio web de Quanser, se debe acceder al entorno de MATLAB, donde se llevará a cabo el siguiente procedimiento:
 
-Donde:
+* Desde MATLAB, se debe buscar, descargar e instalar el complemento llamado Quanser Interactive Labs for MATLAB, el cual permite la integración del entorno de simulación con las herramientas de Quanser, incluyendo los gemelos digitales.
 
-* 𝑍 es el número de dientes.
+![image](https://github.com/user-attachments/assets/ad78c73a-767f-4812-84ef-93bf952304df)
 
-* 𝐷 es el diámetro del engranaje.
+*Imagen 2. Instalación Quanser con Matlab*
 
-* N es la relación de transmisión.
+En este laboratorio se desarrollará un modelo básico en Simulink utilizando bloques del entorno QUARC, con el objetivo de controlar un motor de corriente continua (DC) y medir el ángulo de rotación correspondiente. Esta práctica permitirá familiarizarse con la interfaz de programación en tiempo real y establecer la comunicación entre el modelo digital y la planta simulada mediante el uso de sensores y actuadores virtuales.
 
-**Efectos de la Relación de Engranajes**
+![Imagen de WhatsApp 2025-05-18 a las 22 07 42_1a259855](https://github.com/user-attachments/assets/7e4d87b2-a5d2-4710-ab38-ac2baa72e96c)
 
-*Reducción de velocidad (𝑁 > 1)*
+*Imagen 3. Montaje Planta Quanzer dentro de entorno Simulink*
 
-* El engranaje conducido es más grande que el conductor.
+## 3. Inicio de Aplicación
 
-* La velocidad angular disminuye, pero el torque aumenta.
+Una vez instalado el programa y configurado correctamente el entorno de trabajo, se estará listo para iniciar con el proceso de programación y ensamblaje de componentes dentro del entorno virtual proporcionado por Quanser.
 
-*Aumento de velocidad (𝑁 < 1)*
+Para comenzar con el desarrollo del proyecto, se deben seguir los siguientes pasos desde la ventana de comandos de MATLAB:
 
-* El engranaje conducido es más pequeño.
+* Escribir QLabs.setup y presionar Enter para configurar el entorno de Quanser Interactive Labs.
 
-* La velocidad angular aumenta, pero el torque disminuye.
+* A continuación, digitar QLabs.launch y presionar Enter para iniciar la interfaz gráfica del laboratorio virtual.
 
-*Relación 1:1 (N=1)*
+Una vez ejecutado este comando, se abrirá una ventana emergente donde se podrá seleccionar una de las tres plantas disponibles para comenzar a trabajar.
 
-* Ambos engranajes tienen el mismo tamaño.
+![image](https://github.com/user-attachments/assets/c96b09b5-e503-4935-bf95-4118626a30ea)
 
-* No hay cambio en la velocidad ni en el torque.
+*Imagen 4. Plantas disponibles Quanser*
 
-### 3.1. Eficiencia
+Dentro de la ventana emergente que se abre tras ejecutar el comando QLabs.launch, se pueden observar tres opciones de plantas virtuales disponibles para simular. Cada una representa un sistema dinámico diferente que permite desarrollar experimentos de control y modelado en entornos de ingeniería realistas. Estas plantas son:
 
-La eficiencia en el control de movimiento se refiere a la capacidad de un sistema para transformar la energía en movimiento preciso y efectivo, minimizando pérdidas y optimizando el desempeño.
+### 3.1. Qube 2 – DC Motor
+Esta planta representa un sistema de servomotor DC, ideal para realizar experimentos que cubren los fundamentos del diseño de sistemas de control clásicos. Es útil para implementar algoritmos de control de posición y velocidad, así como para estudiar la respuesta dinámica del sistema. Suele incluir ejercicios como control proporcional-integral-derivativo (PID), identificación de sistemas, y análisis de estabilidad.
 
-**Factores Clave en la Eficiencia**
+### 3.2. Aero
+La planta Aero simula un sistema aeroespacial, compuesto por hélices que representan grados de libertad en actitud (pitch y yaw). Es un sistema no lineal dinámicamente acoplado, lo que lo hace ideal para experimentos avanzados de control en tiempo real. Este módulo es ampliamente utilizado para aprender a estabilizar sistemas complejos, como los utilizados en drones o vehículos aéreos no tripulados.
 
-*Transmisión de Energía*
+### 3.3. Ball and Beam
+Esta planta representa el clásico experimento de control de una bola sobre una viga, donde el objetivo es mantener la bola equilibrada en una posición deseada a lo largo del haz. Este sistema es altamente inestable y requiere el uso de sensores de posición y estrategias avanzadas de control como el control en lazo cerrado, observadores de estado o controladores robustos. Es ampliamente utilizado para enseñar conceptos de retroalimentación, control óptimo y dinámica avanzada.
 
-* Usar mecanismos de transmisión eficientes, como engranajes de alta precisión o correas síncronas con baja fricción.
+![image](https://github.com/user-attachments/assets/f2e3931e-8672-407b-8a9a-9f942b058e28)
+*Imagen 5. Modeloaje de Plantas disponibles*
 
-* Minimizar pérdidas por rozamiento y holguras en acoplamientos mecánicos.
+Una vez dentro del entorno principal de Quanser Interactive Labs, se debe hacer clic sobre la planta "Qube 2 – DC Motor". Esta opción abre una nueva ventana emergente donde se visualiza un entorno simulado que representa el sistema de servomotor.
 
-*Control del Torque y la Velocidad*
+Este entorno incluye:
 
-* Implementar controladores PID o algoritmos avanzados para ajustar dinámicamente el torque y la velocidad.
+* Vista en 3D del sistema Qube 2, permitiendo observar la rotación del motor y su comportamiento dinámico.
 
-* Asegurar una relación de inercia adecuada entre el motor y la carga para mejorar la respuesta del sistema.
+* Controles de simulación, tales como iniciar, pausar y reiniciar el experimento.
 
-*Reducción de Pérdidas Energéticas*
+* Sensores virtuales que permiten visualizar y medir la posición angular, velocidad y señales de control.
 
-* Seleccionar motores y accionamientos con alta eficiencia.
+* Interfaz para conectar con MATLAB/Simulink, lo cual permite ejecutar algoritmos de control desarrollados por el usuario en tiempo real.
 
-* Evitar sobrecargas y diseñar el sistema para operar dentro del rango óptimo de eficiencia del motor.
+![image](https://github.com/user-attachments/assets/ee9b7202-9200-4838-86d2-8c27fcae51db)
 
-*Optimización del Perfil de Movimiento*
-
-* Usar aceleraciones y desaceleraciones suaves para evitar picos de corriente y desgaste mecánico.
-
-* Aplicar técnicas como interpolación y control de trayectoria para mejorar la precisión y reducir vibraciones.
-
-*Selección de Sensores y Realimentación*
-
-* Implementar sensores de alta resolución para mejorar la precisión y estabilidad del control.
-
-* Utilizar sistemas de retroalimentación en tiempo real para corregir desviaciones y mejorar la eficiencia del sistema.
-  
-### 3.2. Inercia Total
-
-Es la suma de todas las inercias reflejadas al eje del motor. Incluye la inercia del propio motor, la inercia de la carga y la de los elementos de transmisión, ajustadas según la relación de transmisión. Se expresa mediante la fórmula general:
-
-$$J{total} = J{motor} + J{transmisión} + J{carga} {reflejada}$$
-
-Donde:
-
-* $J{motor}$: Es la inercia del rotor del motor.
-
-* $J{transmision}$: Es la inercia de engranajes, poleas, correas, etc.
-
-*$J{carga reflejada}$: ​Es la inercia de la carga ajustada a la referencia del motor, calculada como:
-
-$$J{carga}{reflejada} : J{carga} * N^{2}$$
-
-Donde N está dado por la relación de transmisión.
-
-$N: \frac{W_{motor}}{W_{carga}}$
-
-**Importancia del Cálculo de la Inercia Total**
-* *Afecta la respuesta dinámica: Una inercia elevada requiere mayor torque para acelerar y desacelerar.*
-* *Influye en la selección del motor: Un desbalance entre la inercia del motor y la carga puede afectar la estabilidad y eficiencia del sistema.*
-* *Optimiza el control de movimiento: Una inercia total bien calculada permite un control más preciso y eficiente del sistema.*
-  
-### 3.3. Relación de Inercia
-
-Es un parámetro clave en el diseño de sistemas de control de movimiento, ya que indica el equilibrio dinámico entre el motor y la carga. Se define como la razón entre la inercia reflejada de la carga y la inercia del rotor del motor
-
-Relación de Inercia: $$\frac{J{carga} {reflejada}}{J_{motor}}$$
-
-**Donde:**
-* $J{carga} {reflejada}: J_{carga} * N^{2}$ (si hay una transmisión con relación N)
-* $J_{motor}$ es la inercia del motor
-
-**Práctica de la relación de Inercia**
-
-En la práctica, la relación de inercia entre la carga y el motor es un aspecto clave para lograr un sistema de movimiento eficiente y confiable. Esta relación influye directamente en el comportamiento dinámico del sistema, así como en la selección del motor y la transmisión. Dependiendo del tipo de aplicación y sus exigencias, se pueden presentar distintos escenarios que vale la pena considerar:
-
-* *Relación de inercia baja (rango de 1 a 2)*: Es adecuada para aplicaciones que requieren movimientos rápidos, con frecuentes arranques y paradas. No obstante, puede implicar el uso de un motor sobredimensionado, lo cual aumenta los costos y reduce la eficiencia energética.
-
-* *Relación de inercia alta (mayor a 10):* Se emplea en situaciones donde no se necesita una alta dinámica, como en movimientos lentos o constantes. Aunque puede reducir el tamaño del motor, también conlleva riesgos como una baja eficiencia del sistema o torque insuficiente para cumplir con la tarea.
-
-Por ello, elegir correctamente la relación de inercia según la aplicación es esencial para optimizar el rendimiento y evitar problemas en el diseño de sistemas de control de movimiento.
-Un sensores un dispositivo que detecta cambios en una magnitud física o química, como temperatura, presión o luz, y los convierte en señales eléctricas para su procesamiento. Se usa en diversos sistemas para monitoreo y automatización.
-
+*Imagen  6. Diseño virtual de planta*
 
 ## 4. Concepto Transmisión Polea-Correa
 
-El sistema de transmisión por polea y correa es un mecanismo ampliamente utilizado para transferir movimiento y potencia entre dos ejes separados. Este tipo de transmisión se basa en el uso de una correa flexible que conecta dos poleas: una motriz (conectada al motor) y otra conducida (conectada a la carga). Al girar la polea motriz, la correa transmite ese movimiento a la polea conducida, permitiendo modificar la velocidad y el torque de salida según el diámetro de las poleas involucradas.
+El sistema de transmisión por polea y correa es un mecanismo ampliamente utilizado para transferir movimiento y potencia entre dos ejes separados. Este tipo de transmisión se basa en el uso de una correa flexible que conecta dos poleas: una motriz (coneUna vez ejecutado este comando, se abrirá una ventana emergente donde se podrá seleccionar una de las tres plantas disponibles para comenzar a trabajar.ctada al motor) y otra conducida (conectada a la carga). Al girar la polea motriz, la correa transmite ese movimiento a la polea conducida, permitiendo modificar la velocidad y el torque de salida según el diámetro de las poleas involucradas.
 
 Entre sus ventajas destacan la simplicidad mecánica, el bajo costo, el funcionamiento silencioso y la capacidad de absorber vibraciones. Además, permite transmisiones a distancia y cierta flexibilidad en la alineación de los ejes. Sin embargo, también presenta desventajas como el posible deslizamiento de la correa, la necesidad de mantenimiento periódico (ajuste de tensión y reemplazo de la correa) y una eficiencia menor comparada con sistemas más rígidos como engranajes.
 

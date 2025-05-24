@@ -1,5 +1,5 @@
 # Apuntes_Semana Once
-Apuntes control de movimiento - Segundo Corte - Novena Semana
+Apuntes control de movimiento - Segundo Corte - Novena Semana_ljajskdjkajksdljkasd
 
 # Control de Movimiento (Diseño de Transmisión)
 

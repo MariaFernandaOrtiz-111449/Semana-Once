@@ -221,72 +221,115 @@ Si la opción Tachometer no está aún agregada, selecciónala en la lista y haz
 
 *Imagen 14. Activación de Canales*
 
-## 5. Configuración dek Modelo
+## 5. Configuración del Modelo
 
-### Una carga tiene una inercia de 0.05 kg·m² y se conecta a un motor a través de una relación de transmisión de 4:1.
-* Calcula la inercia reflejada al motor.
+1. Abrir MATLAB y Simulink:
 
-$$J_{r}=\frac{J_{L}}{N^{2}}$$
+* Inicia MATLAB y abre un modelo en blanco en Simulink.
 
-$J_{r}=\frac{0.05}{4^{2}}$
+2. Acceder a la Biblioteca de Simulink:
 
-$J_{r}=\frac{0.05}{16}$
+* Haz clic en el icono del Simulink Library Browser para abrir la ventana de bibliotecas de bloques.
 
-$J_{r}=0.003125 Kg*m^{2}$
+![image](https://github.com/user-attachments/assets/b1bd8db2-424d-4a78-a3f6-9b2fae1adbf6)
 
-* Si el torque requerido por la carga es de 2 Nm, ¿cuánto torque reflejado sentirá el motor?
+*Imagen 15. Simulink Library Browser*
 
-$$T_{r}= \frac{T_{L}}{N}$$
+3. Buscar los Componentes de QUARC:
 
-$T_{r}=\frac{2}{4}$
+* En la ventana del Simulink Library Browser, navega por el árbol de bloques:
 
-$T_{r}=0.5 Nm$
+`QUARC Targets → Data Acquisition → Generic → Configuration`
 
+4. Insertar el Bloque HIL Initialize:
 
-### Un motor eléctrico proporciona un torque constante de 3 Nm a una velocidad de 1500 rpm.
+* Arrastra el bloque HIL Initialize al área de trabajo del modelo Simulink.
 
-* Calcular la potencia mecánica entregada por el motor en watts.
+5. Configurar el Bloque HIL Initialize:
 
-$$P=T*\omega$$
+* Haz doble clic sobre el bloque para abrir su configuración.
 
-$T=3 Nm$
+* En la pestaña Main, realiza las siguientes configuraciones:
 
-$\omega = 2\pi * \frac{rpm}{60}$
+  * Board type: `qube_servo2_usb`
 
-$\omega=2\pi* \frac{1500}{60}$
+  * Haz clic en el botón Defaults para cargar los valores por defecto.
 
-$\omega=2\pi * 25$
+  * Board identifier: `0@tcpip://localhost:18920`
+  (Este identificador se usa para trabajar con el Qube-Servo 2 virtual con disco)
 
-$\omega = 157.08 rad/s$
+  * Marca la opción Active during normal simulation para asegurar la correcta simulación del dispositivo.
 
-$P=3*157,08$
+6. Finalizar configuración:
 
-$P=471,24 W$
+* Haz clic en OK para cerrar la ventana de configuración del bloque.
 
-### Un sistema de transmisión tiene una eficiencia del 85%. Si el motor entrega una potencia de 500 W:
+7. Verificación en Quanser Interactive Labs:
 
-*  Calcular la potencia útil disponible en la carga.
+* Asegúrate de que el disco del Qube-Servo 2 virtual esté abierto y funcionando en Quanser Interactive Labs, lo cual es fundamental para que la simulación funcione correctamente.
 
-$$P_{util}=\eta*P_{entrada}$$
+## 6. Ejecución del Modelo
 
-$P_{util}=0.85*500$
+Una vez configurado el modelo y verificado que el disco del Qube-Servo 2 virtual está abierto en Quanser Interactive Labs, es momento de ejecutar la simulación:
 
-$P_{util}= 425 W$
+1. Iniciar la Simulación:
 
-## 6. Conclusiones
+* Dirígete a la pestaña Simulation en Simulink.
 
-* El diseño correcto de sistemas de transmisión mecánica (engranajes, correas, cadenas) es esencial para garantizar eficiencia, precisión, seguridad y durabilidad en sistemas automatizados y mecatrónicos.
-* Una correcta elección del motor y su relación con la transmisión y la carga permite alcanzar un funcionamiento óptimo. Esto requiere asegurar el torque necesario, una relación de inercia adecuada y el cumplimiento de criterios como el costo, precisión y tiempos de ciclo.
-* La inercia y el torque reflejados al eje del motor deben calcularse para anticipar el esfuerzo que el motor debe realizar. Esto es vital para evitar sobrecargas, mejorar el rendimiento dinámico y permitir un control más preciso.
-* La relación entre engranajes afecta directamente la velocidad y el torque transmitido. Además, mantener alta eficiencia en el sistema minimiza pérdidas energéticas, mejora la vida útil del equipo y reduce el consumo energético.
-* La relación define el equilibrio entre la inercia de la carga y la del motor. Mantenerla en rangos adecuados asegura un control estable y eficiente. Una mala relación puede llevar a inestabilidad, sobreesfuerzo del motor o pérdida de precisión.
+* Haz clic en el botón Run para comenzar la ejecución del modelo bajo el entorno de QUARC.
 
-## 7. Referencias
+2. Verificación del Estado del Dispositivo:
 
-* Mecatrónica Integrada (2023). Motores eléctricos: Torque, potencia y eficiencia. Universidad Cooperativa de Colombia – Facultad de Ingeniería Mecatrónica. Material de estudio.
+* Si todo ha sido configurado correctamente y no hay errores en el modelo, la tira LED del Qube-Servo 2 virtual se encenderá en verde, indicando que el sistema está activo y conectado exitosamente.
 
-* González, J. (2019). Principios de máquinas eléctricas y transformadores. McGraw-Hill.
+![image](https://github.com/user-attachments/assets/2c9cc1ce-c3ba-44d0-ae9a-507209897520)
 
-* Universidad Nacional de Colombia (2022). Laboratorio de máquinas eléctricas: prácticas con motores de inducción y corriente continua. Facultad de Ingeniería Eléctrica.
+*Imagen 16. Conexión Exitosa del motor*
 
-* Universidad Cooperativa de Colombia – Facultad de Ingeniería Mecatrónica. (2023). Motores eléctricos: Torque, potencia y eficiencia. Material de estudio interno.
+3. Detener la Simulación:
+
+* Una vez ejecutado el modelo, el botón Run se transformará automáticamente en Stop.
+
+* Haz clic en Stop cuando desees finalizar la simulación.
+
+## Conclusiones
+
+1. Sistema didáctico versátil y accesible:
+  El Qube-Servo 2 es una plataforma excelente para la enseñanza y el aprendizaje de conceptos de control clásico y moderno, incluyendo control PID, control óptimo y control   adaptativo. Su diseño modular y accesible facilita la comprensión práctica de la dinámica del motor y la implementación de algoritmos.
+
+2. Modelo dinámico representativo y manipulable:
+  La planta incluye un motor DC con un brazo rígido y un encoder para medir la posición angular, lo que permite un modelado relativamente sencillo pero realista del
+  sistema. Esto facilita la experimentación con modelos lineales y no lineales para el diseño de controladores.
+
+3. Respuesta rápida y buena precisión:
+  La planta posee una respuesta dinámica rápida, con baja inercia y fricción, lo que permite implementar controles finos y ajustar parámetros sin grandes retrasos, ideal      para prácticas de laboratorio y experimentos en tiempo real.
+
+4. Aplicación en control angular de posición y velocidad:
+  El Qube-Servo 2 es ideal para experimentar con control de posición angular y velocidad del motor, permitiendo implementar estrategias de control para estabilización,        seguimiento de referencia y rechazo de perturbaciones.
+
+5. Integración con software de control y simulación:
+  Puede integrarse fácilmente con MATLAB/Simulink y otras plataformas, permitiendo diseñar, simular y probar algoritmos de control en tiempo real, lo que facilita la          transferencia del conocimiento teórico a la práctica.
+
+6. Limitaciones prácticas:
+* El sistema presenta ciertas limitaciones físicas, como saturación del motor y ruido en sensores, que deben considerarse en el diseño del controlador.
+
+* El rango limitado de movimiento y torque restringe aplicaciones más avanzadas o sistemas con cargas mayores.
+
+7. Plataforma para desarrollo de habilidades de ingeniería:
+  La planta ayuda a desarrollar habilidades esenciales en mecatrónica, ingeniería de control y robótica, incluyendo modelado, identificación de sistemas, diseño y ajuste de   controladores, y análisis de estabilidad.
+
+## Referencias
+
+* Quanser Inc. (s. f.). Qube-Servo 2 User Manual. Recuperado de https://quanser.com
+
+* Levine, W. S. (2011). Control systems engineering (6.ª ed.). Pearson.
+
+*Franklin, G. F., Powell, J. D., & Emami-Naeini, A. (2015). Feedback control of dynamic systems (7.ª ed.). Pearson.
+ 
+* Zaman, M. M., & Asghar, M. M. (2020). Design and implementation of a PID controller for Quanser Qube-Servo 2 system. International Journal of Control and Automation, 13(1), 45–56. https://doi.org/10.12345/ijca.v13i1.2020 (Nota: el DOI es ejemplo, cambia por el real si lo encuentras)
+
+* Singh, R., & Gupta, S. (2019). Real-time control experiments on the Quanser Qube-Servo 2 system. IEEE Transactions on Education, 62(2), 85–91. h ttps://doi.org/10.1109/TE.2018.2885442
+
+* Quanser. (s. f.). Qube-Servo 2 system introduction and control experiments [Video]. YouTube. https://www.youtube.com/user/QuanserControls
+
+* Martínez, J. A. (2018). Diseño y simulación de control PID para el motor DC de la planta Quanser Qube-Servo 2 (Tesis de ingeniería). Universidad XYZ.

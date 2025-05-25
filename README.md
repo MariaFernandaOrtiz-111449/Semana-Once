@@ -58,7 +58,7 @@ En este laboratorio se desarrollará un modelo básico en Simulink utilizando bl
 
 ## 3. Inicio de Aplicación
 
-Una vez instalado el programa y configurado correctamente el entorno de trabajo, se estará listo para iniciar con el proceso de programación y ensamblaje de componentes dentro del entorno virtual proporcionado por Quanser.
+Una vez instalado el programa y configurado correctamente el entorno de trabajo, estará listo para iniciar con el proceso de programación y ensamblaje de componentes dentro del entorno virtual proporcionado por Quanser.
 
 Para comenzar con el desarrollo del proyecto, se deben seguir los siguientes pasos desde la ventana de comandos de MATLAB:
 
@@ -83,9 +83,6 @@ La planta Aero simula un sistema aeroespacial, compuesto por hélices que repres
 ### 3.3. Ball and Beam
 Esta planta representa el clásico experimento de control de una bola sobre una viga, donde el objetivo es mantener la bola equilibrada en una posición deseada a lo largo del haz. Este sistema es altamente inestable y requiere el uso de sensores de posición y estrategias avanzadas de control como el control en lazo cerrado, observadores de estado o controladores robustos. Es ampliamente utilizado para enseñar conceptos de retroalimentación, control óptimo y dinámica avanzada.
 
-![image](https://github.com/user-attachments/assets/f2e3931e-8672-407b-8a9a-9f942b058e28)
-*Imagen 5. Modeloaje de Plantas disponibles*
-
 Una vez dentro del entorno principal de Quanser Interactive Labs, se debe hacer clic sobre la planta "Qube 2 – DC Motor". Esta opción abre una nueva ventana emergente donde se visualiza un entorno simulado que representa el sistema de servomotor.
 
 Este entorno incluye:
@@ -102,57 +99,129 @@ Este entorno incluye:
 
 *Imagen  6. Diseño virtual de planta*
 
-## 4. Concepto Transmisión Polea-Correa
+## 4. Modelo mediante Bloques Planta Quanser
 
-El sistema de transmisión por polea y correa es un mecanismo ampliamente utilizado para transferir movimiento y potencia entre dos ejes separados. Este tipo de transmisión se basa en el uso de una correa flexible que conecta dos poleas: una motriz (coneUna vez ejecutado este comando, se abrirá una ventana emergente donde se podrá seleccionar una de las tres plantas disponibles para comenzar a trabajar.ctada al motor) y otra conducida (conectada a la carga). Al girar la polea motriz, la correa transmite ese movimiento a la polea conducida, permitiendo modificar la velocidad y el torque de salida según el diámetro de las poleas involucradas.
+Para iniciar el proceso de diseño de plantas y controladores en el entorno Simulink, es necesario conectar el bloque del Qube 2 – DC Motor dentro de un nuevo modelo. Este procedimiento permite que MATLAB/Simulink se comunique con la planta virtual y se puedan enviar señales de control y recibir datos en tiempo real.
 
-Entre sus ventajas destacan la simplicidad mecánica, el bajo costo, el funcionamiento silencioso y la capacidad de absorber vibraciones. Además, permite transmisiones a distancia y cierta flexibilidad en la alineación de los ejes. Sin embargo, también presenta desventajas como el posible deslizamiento de la correa, la necesidad de mantenimiento periódico (ajuste de tensión y reemplazo de la correa) y una eficiencia menor comparada con sistemas más rígidos como engranajes.
+Pasos a seguir:
 
-**Puntos claves:**
+**1. Abrir Simulink:**
 
-* *Relación de transmisión:* Se determina por el cociente entre los diámetros de las poleas. Esto permite adaptar la velocidad y el torque entre el motor y la carga.
+* En la ventana de MATLAB, escribe simulink y presiona Enter para abrir el entorno de modelado.
 
-* *Tensión adecuada:* Es fundamental mantener la correa con la tensión correcta para evitar deslizamientos y asegurar una transmisión eficiente y duradera.
+**2. Crear un nuevo modelo:**
 
-### 4.1. Relación de Transmisión
+* Haz clic en "Blank Model" (modelo en blanco) para iniciar un nuevo proyecto.
 
-La relación de transmisión en un sistema de polea-correa indica cómo se modifica la velocidad de rotación entre la polea motriz (la que transmite el movimiento) y la polea conducida (la que recibe el movimiento). Esta relación depende directamente del tamaño de las poleas, y se calcula como:
+**3. Insertar bloques de QUARC:**
 
-Relación de transmisión (i) = $$\frac {Diámetro de la polea conducida}{Diámetro de la polea motriz}$$
+* Abre la biblioteca de bloques y busca QUARC Targets. Aquí encontrarás los bloques necesarios para interactuar con la planta.
 
-Este valor también puede expresarse usando las velocidades de rotación:
+* Dentro de esa biblioteca, ubica el bloque "Qube-Servo 2 - DC Motor" (puede variar ligeramente dependiendo de la versión del software).
 
-$$i: \frac{Velocidad de la polea motriz}{Velocidad de la polea conducida}$$
+![Imagen de WhatsApp 2025-05-20 a las 20 42 29_02d9e5d6](https://github.com/user-attachments/assets/98e66953-2d5c-4799-b0c2-09e0a66b3cd7)
 
-### 4.2. Inercia Reflejada
+*Imagen 7. Bloque del motor*
 
-En un sistema de polea-correa, la inercia reflejada se refiere a cómo la inercia de la carga (conectada a la polea conducida) se “ve” desde el motor (polea motriz), tomando en cuenta la relación de transmisión. Este concepto es clave en el diseño de sistemas de control de movimiento, ya que afecta directamente la respuesta dinámica del motor.
+Una vez insertado el bloque del motor en el modelo de Simulink, es necesario configurar sus parámetros para asegurar una correcta comunicación con la planta. Esta configuración varía dependiendo de si se trabaja con gemelos digitales (planta virtual) o con el motor físico.
 
-La inercia reflejada $J_{ref}$ al eje del motor se obtiene mediante la siguiente fórmula:
+**1. Acceder a la configuración del bloque:**
 
-$$J_{ref}: \frac{J_{carga}}{i^{2}}$$
+* Haz doble clic sobre el bloque del motor para abrir su ventana de propiedades.
 
-Donde:
-* $J_{carga}$ es la inercia real de la carga.
-* 𝑖
-i es la relación de transmisión (diámetro polea conducida / diámetro polea motriz).
+**2. Asignar un nombre al dispositivo:**
 
-### 4.3. Torque de Carga
+* En el campo correspondiente al nombre del hardware, asigna el nombre HL_1. Este identificador será usado en el resto del modelo para hacer referencia al motor.
 
-El torque de carga en un sistema de transmisión por polea-correa es el torque que debe entregar el motor para mover la carga conectada a la polea conducida. Este torque depende de la relación de transmisión, el tipo de carga y la eficiencia del sistema.
+**3. Tipo de dispositivo:***
 
-**Relación entre torque del motor y torque de la carga:**
+Dependiendo del entorno que se utilice, se selecciona el tipo de dispositivo:
 
-$$T{motor}: \frac{T_{carga}}{i*n}$$
+Para gemelos digitales:
 
-Donde:
+* Tipo de dispositivo: qube_servo2_usb
 
-* $T{motor}$ es el torque que debe generar el motor
-* $T_{carga}$ es el torque requerido por la carga
-* $i$ es la relación de transmisión (diámetro polea conducida / diámetro polea motriz)
-* $n$ es la eficiencia del sistema (entre 0 y 1)
+* Identificador de dispositivo: 0@tcpip://localhost:18920
 
-## 5. Ejercicios
+Para motor físico:
+
+* Tipo de dispositivo: qube_servo3_usb
+
+* Identificador de dispositivo: 0
+
+Esto indica al sistema si debe comunicarse con el entorno virtual (simulación) o con el hardware real, respectivamente.
+
+![Imagen de WhatsApp 2025-05-20 a las 20 42 42_e7e2581f](https://github.com/user-attachments/assets/243a0314-4b15-48b5-aa30-0c7f3e595344)
+
+*Imagen 8. Configuración del motor*
+
+En el modelo de Simulink, los bloques que se muestran permiten establecer la comunicación directa con el motor Qube, ya sea para enviar señales de control o para leer variables físicas medidas por los sensores. El bloque HIL Write Analog se utiliza para enviar una señal analógica al motor. En este caso, se está enviando una señal constante de 2.5 voltios al canal 0, lo cual genera una acción de control sobre el motor, como el movimiento o la generación de torque, dependiendo de la configuración. Por otro lado, el bloque HIL Read Timebase se encarga de leer datos en tiempo real provenientes de los sensores del motor. Se utilizan distintos canales: el canal a0 corresponde al sensor de corriente, que permite medir el consumo del motor; el canal e0 corresponde al sensor de posición, es decir, los encoders que indican la posición angular del motor; y el canal 014000 permite leer la velocidad angular del motor. Estos bloques son fundamentales para diseñar un sistema de control en lazo cerrado, ya que permiten actuar sobre el sistema y al mismo tiempo medir su respuesta para aplicar las estrategias de control correspondientes.
+
+![Imagen de WhatsApp 2025-05-20 a las 20 49 40_8994fbc0](https://github.com/user-attachments/assets/463a3882-bc16-4628-afec-1ce63d9ee4a2)
+
+*Imagen 9. Información del motor*
+
+Para el bloque HIL Write Analog, es importante asegurarse de que el nombre de la tarjeta coincida con el nombre asignado al motor en la configuración inicial, en este caso HIL-1. Además, es fundamental verificar que la casilla “Active during normal simulation” esté activada. Esta opción permite que el bloque funcione correctamente durante la simulación normal, asegurando que la señal analógica se envíe al motor durante la ejecución del modelo. Con esta configuración, el sistema estará listo para enviar comandos de control analógicos al motor a través del canal especificado, en este caso, el canal 0.
+
+![Imagen de WhatsApp 2025-05-20 a las 20 50 23_44b88c98](https://github.com/user-attachments/assets/d6ef654b-dd6b-4239-a8fa-84eaa01b88fa)
+
+*Imagen 10. Configuración bloque HIL Write Analog*
+
+Para el bloque HIL Read Timebase, lo primero que debemos hacer es asegurarnos de que el nombre de la tarjeta coincida con el del motor, en este caso HIL-1, y que la opción “Active during normal simulation” esté activada para garantizar el correcto funcionamiento durante la simulación. Además, es necesario habilitar las salidas de lectura que correspondan a los sensores utilizados. En este ejemplo, como se requiere la lectura de posición, velocidad y corriente, se configuran los siguientes campos:
+
+* Analog channels: para la lectura de la corriente, se utiliza el canal 0.
+
+* Encoder channels: para la lectura de la posición, se activa el canal [0].
+
+* Other channels: para la lectura de la velocidad, se especifica el canal [14000].
+
+De esta forma, el bloque queda configurado para recibir las señales de los sensores conectados a la tarjeta de hardware, lo que permite monitorear en tiempo real el comportamiento del motor durante la simulación.
+
+![Imagen de WhatsApp 2025-05-20 a las 20 52 23_9778c15e](https://github.com/user-attachments/assets/863556b9-0bc1-4535-a917-212c838726b2)
+
+*Imagen 11. Configuración Bloque HIL Read *
+
+El bloque HIL Read Timebase permite leer datos de entrada desde los canales de una tarjeta Hardware-in-the-Loop (HIL), funcionando además como base de tiempo para el modelo. Para su correcta configuración, es importante seguir los siguientes pasos:
+
+**Nombre de la tarjeta (Board name):**
+Asegúrate de que el nombre de la tarjeta coincida con el del resto del sistema. En este caso, debe ser HIL-1.
+
+**Activación en simulación normal:**
+Verifica que la opción “Active during normal simulation” esté marcada. Esto permite que el bloque funcione correctamente durante la simulación en tiempo real.
+
+**Canales de lectura necesarios:**
+Debemos activar los canales de entrada correspondientes a los sensores requeridos en la simulación. En este caso, se desea obtener datos de:
+
+* Corriente del motor:
+Habilitar el canal analógico donde se encuentra conectado el sensor. Haz clic en el campo Analog channels, busca "Motor Current Sensor [A]" en la lista y agrégalo utilizando el botón “>>” si aún no está agregado.
+
+* Posición del motor:
+Para esto, se utiliza un codificador. Agrega el canal correspondiente en el campo Encoder channels. En este ejemplo, se ha seleccionado el canal [0].
+
+* Velocidad del motor:
+Se debe ingresar el canal correspondiente en el campo Other channels. Por ejemplo, el canal [140000].
+
+![Imagen de WhatsApp 2025-05-20 a las 20 55 47_68a4681e](https://github.com/user-attachments/assets/b42a35e1-bd53-4885-a659-3cd597119dfa)
+
+*Imagen 12. Creación Analog Channels*
+
+Al hacer clic en el campo Encoder channels, se desplegará una lista con los codificadores disponibles que tiene el motor. Generalmente se mostrarán ambos encoders disponibles.
+
+Para este caso específico, solo es necesario utilizar un encoder, ya que las pruebas que se realizarán con el motor no requieren detección de cambio de giro ni la lectura de ambos encoders.
+
+Selecciona el encoder deseado en la lista y haz clic en el botón “>>” para agregarlo, en caso de que no esté ya incluido en el campo de canales.
+
+![Imagen de WhatsApp 2025-05-20 a las 20 57 38_0f1eb66d](https://github.com/user-attachments/assets/bebbbb70-a780-4d07-a0af-c74d6a053323)
+
+*Imagen 13. Datos del motor mediante el encoder*
+
+Al hacer clic en el campo Other channels, se desplegará una lista con diferentes señales adicionales disponibles. En este caso, seleccionamos la opción Tachometer, que en el motor Quanser es el sensor encargado de proporcionar la velocidad de rotación del motor.
+
+Si la opción Tachometer no está aún agregada, selecciónala en la lista y haz clic en el botón “>>” para incluirla en los canales activos.
+
+*Imagen 14. Activación de Canales*
+
+## 5. Configuración dek Modelo
 
 ### Una carga tiene una inercia de 0.05 kg·m² y se conecta a un motor a través de una relación de transmisión de 4:1.
 * Calcula la inercia reflejada al motor.

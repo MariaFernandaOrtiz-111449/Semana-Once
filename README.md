@@ -3,9 +3,38 @@ Apuntes control de movimiento - Tercer Corte - Onceava Semana
 
 Tomás Santiago Sánchez Barrera & María Fernanda Ortíz Velandia & Andrés Felipe Arteaga Escalante
 
-# Guía para uso de gemelos digitales de Quanser
+## Indice
 
-**Introducción al trabajo de Quanser**
+1. [Guía para uso de gemelos digitales de Quanser](#Guía-para-uso-de-gemelos-digitales-de-Quanser)
+
+    1.1. [Introducción al trabajo de Quanser](#Introducción-al-trabajo-de-Quanser)
+
+2. [Funcionamiento Motor Qube Servo 2](#Funcionamiento-Motor-Qube-Servo-2)
+
+3. [Inicio de Aplicación](#Inicio-de-Aplicación)
+
+   3.1. [Qube 2 – DC Motor](#Qube-2–DC-Motor)
+
+   3.2. [Aero](#Aero)
+
+   3.3. [Ball and Beam](#Ball-and-Beam)
+
+4. [Modelo mediante Bloques Planta Quanser](#Modelo-mediante-Bloques-Planta-Quanser)
+
+5. [Configuración del Modelo](#Configuración-del-Modelo)
+
+6. [Ejecución del Modelo](#Ejecución-del-Modelo)
+
+7. [Stall Monitor](#Stall-Monitor)
+
+8. [Ejemplos](#Ejemplos)
+
+9. [Conclusiones](#Conclusiones)
+
+10. [Referencias](#Referencias)
+# 1. Guía para uso de gemelos digitales de Quanser <a id='Guía-para-uso-de-gemelos-digitales-de-Quanser'></a>
+
+**1.1 Introducción al trabajo de Quanser** <a id='Introducción-al-trabajo-de-Quanser'></a>
 
 Las plantas Quanser son plataformas físicas diseñadas para la enseñanza y la investigación en el campo de la ingeniería de control, mecatrónica, automatización y robótica. Desarrolladas por la empresa canadiense Quanser, estas plantas permiten a estudiantes e investigadores experimentar de forma práctica con sistemas dinámicos reales, implementando y validando algoritmos de control en tiempo real.
 
@@ -17,8 +46,7 @@ El uso de plantas Quanser permite no solo la comprensión profunda de los concep
 
 En este informe se presenta un estudio sobre una de estas plantas, detallando su comportamiento dinámico, el diseño del modelo matemático correspondiente, la implementación del controlador y la evaluación de su desempeño bajo condiciones reales de operación.
 
-
-## 1. Funcionamiento Motor Qube-Servo 2
+## 2. Funcionamiento Motor Qube-Servo 2 <a id='Funcionamiento-Motor-Qube-Servo-2'></a>
 
 El Qube-Servo 2 es una plataforma didáctica desarrollada por Quanser que permite la implementación y análisis de sistemas de control en tiempo real. Este dispositivo compacto integra un servomotor de precisión y sensores de alta resolución, y está diseñado para facilitar la experimentación con una amplia variedad de algoritmos de control, tanto clásicos como modernos.
 
@@ -56,7 +84,7 @@ En este laboratorio se desarrollará un modelo básico en Simulink utilizando bl
 
 *Imagen 3. Montaje Planta Quanzer dentro de entorno Simulink*
 
-## 3. Inicio de Aplicación
+## 3. Inicio de Aplicación <a id='Inicio-de-Aplicación'> </a>
 
 Una vez instalado el programa y configurado correctamente el entorno de trabajo, estará listo para iniciar con el proceso de programación y ensamblaje de componentes dentro del entorno virtual proporcionado por Quanser.
 
@@ -66,21 +94,31 @@ Para comenzar con el desarrollo del proyecto, se deben seguir los siguientes pas
 
 * A continuación, digitar QLabs.launch y presionar Enter para iniciar la interfaz gráfica del laboratorio virtual.
 
+![image](https://github.com/user-attachments/assets/04990508-f731-48f5-8513-48488d2a426d)
+
+*Imagen 4. Comandos de Inicio*
+
+Al ejecutar el comando, se abre una ventana en la que el estudiante debe ingresar con su correo institucional. Este proceso es indispensable para acceder a las plantas virtuales que la universidad tiene disponibles mediante su licencia. Una vez finalizado el inicio de sesión, se habilita el acceso a los modelos de QLabs, permitiendo comenzar a trabajar con las simulaciones.
+
+![image](https://github.com/user-attachments/assets/1c6a3717-aa8c-4005-96b9-e3e9b99ef0b1)
+
+*Imagen 5. Inicio de sesión*
+
 Una vez ejecutado este comando, se abrirá una ventana emergente donde se podrá seleccionar una de las tres plantas disponibles para comenzar a trabajar.
-
-![image](https://github.com/user-attachments/assets/c96b09b5-e503-4935-bf95-4118626a30ea)
-
-*Imagen 4. Plantas disponibles Quanser*
 
 Dentro de la ventana emergente que se abre tras ejecutar el comando QLabs.launch, se pueden observar tres opciones de plantas virtuales disponibles para simular. Cada una representa un sistema dinámico diferente que permite desarrollar experimentos de control y modelado en entornos de ingeniería realistas. Estas plantas son:
 
-### 3.1. Qube 2 – DC Motor
+![image](https://github.com/user-attachments/assets/c96b09b5-e503-4935-bf95-4118626a30ea)
+
+*Imagen 6. Plantas disponibles Quanser*
+
+### 3.1. Qube 2 – DC Motor <a id='Qube-2–DC-Motor'></a<
 Esta planta representa un sistema de servomotor DC, ideal para realizar experimentos que cubren los fundamentos del diseño de sistemas de control clásicos. Es útil para implementar algoritmos de control de posición y velocidad, así como para estudiar la respuesta dinámica del sistema. Suele incluir ejercicios como control proporcional-integral-derivativo (PID), identificación de sistemas, y análisis de estabilidad.
 
-### 3.2. Aero
+### 3.2. Aero <a id='Aero'></a>
 La planta Aero simula un sistema aeroespacial, compuesto por hélices que representan grados de libertad en actitud (pitch y yaw). Es un sistema no lineal dinámicamente acoplado, lo que lo hace ideal para experimentos avanzados de control en tiempo real. Este módulo es ampliamente utilizado para aprender a estabilizar sistemas complejos, como los utilizados en drones o vehículos aéreos no tripulados.
 
-### 3.3. Ball and Beam
+### 3.3. Ball and Beam <a id='Ball-and-Beam'></a>
 Esta planta representa el clásico experimento de control de una bola sobre una viga, donde el objetivo es mantener la bola equilibrada en una posición deseada a lo largo del haz. Este sistema es altamente inestable y requiere el uso de sensores de posición y estrategias avanzadas de control como el control en lazo cerrado, observadores de estado o controladores robustos. Es ampliamente utilizado para enseñar conceptos de retroalimentación, control óptimo y dinámica avanzada.
 
 Una vez dentro del entorno principal de Quanser Interactive Labs, se debe hacer clic sobre la planta "Qube 2 – DC Motor". Esta opción abre una nueva ventana emergente donde se visualiza un entorno simulado que representa el sistema de servomotor.
@@ -97,9 +135,9 @@ Este entorno incluye:
 
 ![image](https://github.com/user-attachments/assets/ee9b7202-9200-4838-86d2-8c27fcae51db)
 
-*Imagen  6. Diseño virtual de planta*
+*Imagen  7. Diseño virtual de planta*
 
-## 4. Modelo mediante Bloques Planta Quanser
+## 4. Modelo mediante Bloques Planta Quanser <a id='Modelo-mediante-Bloques-Planta-Quanser'></a>
 
 Para iniciar el proceso de diseño de plantas y controladores en el entorno Simulink, es necesario conectar el bloque del Qube 2 – DC Motor dentro de un nuevo modelo. Este procedimiento permite que MATLAB/Simulink se comunique con la planta virtual y se puedan enviar señales de control y recibir datos en tiempo real.
 
@@ -121,7 +159,7 @@ Pasos a seguir:
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 42 29_02d9e5d6](https://github.com/user-attachments/assets/98e66953-2d5c-4799-b0c2-09e0a66b3cd7)
 
-*Imagen 7. Bloque del motor*
+*Imagen 8. Bloque del motor*
 
 Una vez insertado el bloque del motor en el modelo de Simulink, es necesario configurar sus parámetros para asegurar una correcta comunicación con la planta. Esta configuración varía dependiendo de si se trabaja con gemelos digitales (planta virtual) o con el motor físico.
 
@@ -153,19 +191,19 @@ Esto indica al sistema si debe comunicarse con el entorno virtual (simulación) 
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 42 42_e7e2581f](https://github.com/user-attachments/assets/243a0314-4b15-48b5-aa30-0c7f3e595344)
 
-*Imagen 8. Configuración del motor*
+*Imagen 9. Configuración del motor*
 
 En el modelo de Simulink, los bloques que se muestran permiten establecer la comunicación directa con el motor Qube, ya sea para enviar señales de control o para leer variables físicas medidas por los sensores. El bloque HIL Write Analog se utiliza para enviar una señal analógica al motor. En este caso, se está enviando una señal constante de 2.5 voltios al canal 0, lo cual genera una acción de control sobre el motor, como el movimiento o la generación de torque, dependiendo de la configuración. Por otro lado, el bloque HIL Read Timebase se encarga de leer datos en tiempo real provenientes de los sensores del motor. Se utilizan distintos canales: el canal a0 corresponde al sensor de corriente, que permite medir el consumo del motor; el canal e0 corresponde al sensor de posición, es decir, los encoders que indican la posición angular del motor; y el canal 014000 permite leer la velocidad angular del motor. Estos bloques son fundamentales para diseñar un sistema de control en lazo cerrado, ya que permiten actuar sobre el sistema y al mismo tiempo medir su respuesta para aplicar las estrategias de control correspondientes.
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 49 40_8994fbc0](https://github.com/user-attachments/assets/463a3882-bc16-4628-afec-1ce63d9ee4a2)
 
-*Imagen 9. Información del motor*
+*Imagen 10. Información del motor*
 
 Para el bloque HIL Write Analog, es importante asegurarse de que el nombre de la tarjeta coincida con el nombre asignado al motor en la configuración inicial, en este caso HIL-1. Además, es fundamental verificar que la casilla “Active during normal simulation” esté activada. Esta opción permite que el bloque funcione correctamente durante la simulación normal, asegurando que la señal analógica se envíe al motor durante la ejecución del modelo. Con esta configuración, el sistema estará listo para enviar comandos de control analógicos al motor a través del canal especificado, en este caso, el canal 0.
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 50 23_44b88c98](https://github.com/user-attachments/assets/d6ef654b-dd6b-4239-a8fa-84eaa01b88fa)
 
-*Imagen 10. Configuración bloque HIL Write Analog*
+*Imagen 11. Configuración bloque HIL Write Analog*
 
 Para el bloque HIL Read Timebase, lo primero que debemos hacer es asegurarnos de que el nombre de la tarjeta coincida con el del motor, en este caso HIL-1, y que la opción “Active during normal simulation” esté activada para garantizar el correcto funcionamiento durante la simulación. Además, es necesario habilitar las salidas de lectura que correspondan a los sensores utilizados. En este ejemplo, como se requiere la lectura de posición, velocidad y corriente, se configuran los siguientes campos:
 
@@ -179,7 +217,7 @@ De esta forma, el bloque queda configurado para recibir las señales de los sens
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 52 23_9778c15e](https://github.com/user-attachments/assets/863556b9-0bc1-4535-a917-212c838726b2)
 
-*Imagen 11. Configuración Bloque HIL Read *
+*Imagen 12. Configuración Bloque HIL Read *
 
 El bloque HIL Read Timebase permite leer datos de entrada desde los canales de una tarjeta Hardware-in-the-Loop (HIL), funcionando además como base de tiempo para el modelo. Para su correcta configuración, es importante seguir los siguientes pasos:
 
@@ -203,7 +241,7 @@ Se debe ingresar el canal correspondiente en el campo Other channels. Por ejempl
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 55 47_68a4681e](https://github.com/user-attachments/assets/b42a35e1-bd53-4885-a659-3cd597119dfa)
 
-*Imagen 12. Creación Analog Channels*
+*Imagen 13. Creación Analog Channels*
 
 Al hacer clic en el campo Encoder channels, se desplegará una lista con los codificadores disponibles que tiene el motor. Generalmente se mostrarán ambos encoders disponibles.
 
@@ -213,15 +251,15 @@ Selecciona el encoder deseado en la lista y haz clic en el botón “>>” para 
 
 ![Imagen de WhatsApp 2025-05-20 a las 20 57 38_0f1eb66d](https://github.com/user-attachments/assets/bebbbb70-a780-4d07-a0af-c74d6a053323)
 
-*Imagen 13. Datos del motor mediante el encoder*
+*Imagen 14. Datos del motor mediante el encoder*
 
 Al hacer clic en el campo Other channels, se desplegará una lista con diferentes señales adicionales disponibles. En este caso, seleccionamos la opción Tachometer, que en el motor Quanser es el sensor encargado de proporcionar la velocidad de rotación del motor.
 
 Si la opción Tachometer no está aún agregada, selecciónala en la lista y haz clic en el botón “>>” para incluirla en los canales activos.
 
-*Imagen 14. Activación de Canales*
+*Imagen 15. Activación de Canales*
 
-## 5. Configuración del Modelo
+## 5. Configuración del Modelo <a id='Configuración-del-Modelo'></a>
 
 1. Abrir MATLAB y Simulink:
 
@@ -233,7 +271,7 @@ Si la opción Tachometer no está aún agregada, selecciónala en la lista y haz
 
 ![image](https://github.com/user-attachments/assets/b1bd8db2-424d-4a78-a3f6-9b2fae1adbf6)
 
-*Imagen 15. Simulink Library Browser*
+*Imagen 16. Simulink Library Browser*
 
 3. Buscar los Componentes de QUARC:
 
@@ -268,7 +306,7 @@ Si la opción Tachometer no está aún agregada, selecciónala en la lista y haz
 
 * Asegúrate de que el disco del Qube-Servo 2 virtual esté abierto y funcionando en Quanser Interactive Labs, lo cual es fundamental para que la simulación funcione correctamente.
 
-## 6. Ejecución del Modelo
+## 6. Ejecución del Modelo <a id='Ejecución-del-Modelo'></a>
 
 Una vez configurado el modelo y verificado que el disco del Qube-Servo 2 virtual está abierto en Quanser Interactive Labs, es momento de ejecutar la simulación:
 
@@ -284,7 +322,7 @@ Una vez configurado el modelo y verificado que el disco del Qube-Servo 2 virtual
 
 ![image](https://github.com/user-attachments/assets/2c9cc1ce-c3ba-44d0-ae9a-507209897520)
 
-*Imagen 16. Conexión Exitosa del motor*
+*Imagen 17. Conexión Exitosa del motor*
 
 3. Detener la Simulación:
 
@@ -292,7 +330,43 @@ Una vez configurado el modelo y verificado que el disco del Qube-Servo 2 virtual
 
 * Haz clic en Stop cuando desees finalizar la simulación.
 
-## Conclusiones
+## 7. Stall Monitor <a id='Stall-Monitor'></a>
+
+El Stall Monitor es un bloque especializado diseñado para supervisar el funcionamiento del motor en tiempo real, ofreciendo una forma estructurada y eficiente de identificar situaciones anómalas. Su utilidad principal radica en la detección de eventos críticos, como bloqueos prolongados o fallos en el sistema de control.
+
+**Funcionalidad principal**
+
+Este bloque monitorea parámetros del motor, como la corriente eléctrica y la velocidad angular. Si detecta un comportamiento que sugiere un bloqueo o una condición peligrosa, genera una señal digital de advertencia.
+
+**Ubicación en Simulink**
+
+El Stall Monitor se encuentra dentro de la biblioteca de bloques Quanser QUARC Targets en Simulink. Suele emplearse junto con componentes como el HIL Read Timebase, permitiendo así crear sistemas de respuesta automática ante posibles fallas.
+
+**Parámetros de configuración comunes**
+
+* Current Threshold: Define el nivel de corriente que se considera riesgoso y puede indicar un posible bloqueo.
+
+* Time Window: Establece el intervalo de tiempo durante el cual se evalúa la condición anómala.
+
+* Output Signal: Es una señal booleana que se activa si se detecta una situación de bloqueo.
+
+**Aplicaciones prácticas**
+
+La salida del Stall Monitor puede conectarse a distintos bloques, según el propósito deseado, como por ejemplo:
+
+* Un Display, para visualización en tiempo real.
+
+* Un Stop Simulation, para detener la ejecución automáticamente en caso de falla.
+
+* Un Switch o Enabled Subsystem, que permita cortar la señal al actuador y prevenir daños mayores.
+
+![image](https://github.com/user-attachments/assets/908f39f4-3f93-4c73-8b89-fc2913e7383c)
+
+*Imagen 18. Stall Monitor*
+
+## 8. Ejemplos <a id='Ejemplos'></a>
+
+## 9. Conclusiones <a id='Conclusiones'></a>
 
 1. Sistema didáctico versátil y accesible:
   El Qube-Servo 2 es una plataforma excelente para la enseñanza y el aprendizaje de conceptos de control clásico y moderno, incluyendo control PID, control óptimo y control   adaptativo. Su diseño modular y accesible facilita la comprensión práctica de la dinámica del motor y la implementación de algoritmos.
@@ -318,7 +392,7 @@ Una vez configurado el modelo y verificado que el disco del Qube-Servo 2 virtual
 7. Plataforma para desarrollo de habilidades de ingeniería:
   La planta ayuda a desarrollar habilidades esenciales en mecatrónica, ingeniería de control y robótica, incluyendo modelado, identificación de sistemas, diseño y ajuste de   controladores, y análisis de estabilidad.
 
-## Referencias
+## 10. Referencias <a id='Referencias'></a>
 
 * Quanser Inc. (s. f.). Qube-Servo 2 User Manual. Recuperado de https://quanser.com
 

@@ -366,6 +366,91 @@ La salida del Stall Monitor puede conectarse a distintos bloques, según el prop
 
 ## 8. Ejemplos <a id='Ejemplos'></a>
 
+**Ejemplo #1**
+
+El control de corriente en motores eléctricos es una parte esencial en muchos sistemas de automatización y control. En este ejercicio se aborda el diseño e implementación de un controlador que permita regular la corriente de un motor DC de forma eficiente. Utilizando herramientas de simulación, se analiza el comportamiento del sistema y se aplican técnicas clásicas de control para mejorar su respuesta. Este proceso permite comprender mejor la dinámica del motor y la importancia de un buen ajuste en los parámetros del controlador para lograr un desempeño adecuado.
+
+Para diseñar los controladores del sistema, es fundamental analizar la respuesta temporal del mismo. Esto requiere la implementación de un montaje experimental que permita obtener la curva de respuesta del sistema ante una entrada determinada, la cual servirá como base para la identificación de sus características dinámicas y el posterior diseño del controlador.
+
+![Imagen de WhatsApp 2025-05-28 a las 19 24 23_c01f9401](https://github.com/user-attachments/assets/b11a7602-cd1d-42fa-92e5-52ff18ffc2e6)
+
+*Imagen 19. Configuración curva de reacción*
+
+Una vez realizado el montaje experimental, se establece un intervalo de operación durante el cual se registra la respuesta del sistema. A partir de esta respuesta, se identifican los parámetros característicos del modelo dinámico, los cuales son fundamentales para el cálculo y diseño del controlador. Esto permite establecer una estrategia de control adecuada que mantenga las variables del sistema dentro de los rangos deseados de operación.
+
+![Imagen de WhatsApp 2025-05-14 a las 00 18 33_b01eec75](https://github.com/user-attachments/assets/71e24535-d65e-4d4b-9fe4-a85a4b7b4a2b)
+
+*Imagen 20. Curva de reacción*
+
+Al obtener la curva de reacción del sistema, se registran en tiempo real los valores de las variables de interés, lo que permite observar el comportamiento dinámico del sistema ante una perturbación o entrada específica. A partir de esta información, se determinan los parámetros característicos del modelo, los cuales son esenciales para el cálculo de las ganancias del controlador y el diseño de una estrategia de control efectiva.
+
+![Imagen de WhatsApp 2025-05-28 a las 00 40 56_39173761](https://github.com/user-attachments/assets/9aaa280f-e0a5-42ef-9fa5-37225243e08e)
+
+*Imagen 21. Montaje Controlador*
+
+Una vez implementado el controlador y vinculado a una señal de referencia, se procede a conectarlo a la planta. A través del uso de un osciloscopio (scope) en el entorno de simulación, se evalúa el desempeño del sistema verificando el seguimiento de la salida con respecto a la referencia establecida.
+
+![Imagen de WhatsApp 2025-05-28 a las 00 41 07_bf53dddc](https://github.com/user-attachments/assets/c995450e-82cb-404a-9970-55af0b222c59)
+
+*Imagen 22. Respuesta con Controlador Integrado*
+
+
+**Ejemplo #2**
+
+El control de velocidad en motores de corriente continua es esencial para garantizar un funcionamiento preciso y estable en aplicaciones de automatización y sistemas mecatrónicos. En este ejercicio se aborda el diseño de un controlador PI para regular la velocidad angular del motor DC del QUBE-Servo 2, utilizando herramientas de simulación en Simulink. Para la sintonización del controlador se aplicó el método de prueba de relé, también conocido como método de Hang, el cual permite estimar los parámetros del sistema a partir de oscilaciones autoinducidas. Esta técnica proporciona una base sólida para el cálculo de las ganancias del controlador, permitiendo obtener un rendimiento adecuado sin requerir un modelo matemático exacto de la planta.
+
+Para diseñar el lazo de control de velocidad del sistema, es fundamental analizar la respuesta temporal de la velocidad angular del motor. Este análisis requiere la implementación de un montaje experimental que permita obtener la curva de respuesta del sistema ante una entrada determinada, como una señal de referencia escalón, lo cual servirá como base para la identificación de sus características dinámicas y el posterior diseño del controlador.
+
+![Imagen de WhatsApp 2025-05-28 a las 19 24 23_bbcb1c8d](https://github.com/user-attachments/assets/8669aba3-4478-4906-af2f-ab4afb6bf21d)
+
+*Imagen 23. Configuración curva de Reacción*
+
+Una vez realizado el montaje experimental, se establece un intervalo de operación durante el cual se registra la respuesta de la velocidad del motor. A partir de esta respuesta, se identifican los parámetros característicos del sistema, los cuales son esenciales para el cálculo de las ganancias del controlador de velocidad. Esto permite definir una estrategia de control adecuada que garantice un seguimiento preciso de la referencia, minimizando el error y mejorando el desempeño dinámico del sistema.
+
+![Imagen de WhatsApp 2025-05-16 a las 12 06 27_1ffca327](https://github.com/user-attachments/assets/b89a607b-5a70-4e20-bcda-5fa26c443efa)
+
+*Imagen 24. Curva de reacción*
+
+Durante el proceso de identificación, se registran en tiempo real los valores de la velocidad angular del motor, lo que permite observar su comportamiento ante una entrada determinada. Esta información es utilizada para obtener los parámetros necesarios que permitan sintonizar el controlador PI que regule adecuadamente la velocidad del motor.
+
+![Imagen de WhatsApp 2025-05-28 a las 00 44 50_baedb1ff](https://github.com/user-attachments/assets/99cd59af-6169-4a4f-a9d3-a146ef6c7daf)
+
+*Imagen 25. Montaje Controlador*
+
+Finalmente, una vez implementado el controlador de velocidad y vinculado a una señal de referencia, se conecta a la planta simulada. Utilizando un osciloscopio (scope) dentro del entorno de Simulink, se evalúa el comportamiento del sistema, verificando que la salida (velocidad del motor) siga adecuadamente la referencia impuesta, lo que valida el correcto funcionamiento del lazo de control de velocidad.
+
+![Imagen de WhatsApp 2025-05-28 a las 00 44 50_fb29ce15](https://github.com/user-attachments/assets/d15dda80-473b-44f2-9223-d13ea6f565b4)
+
+*Imagen 26. Respuesta con Controlador Implementado*
+
+**Ejemplo #3**
+
+El control de posición en sistemas de motores DC resulta fundamental en aplicaciones donde se requiere un posicionamiento preciso y estable. En este caso, se busca diseñar un lazo de control que permita al eje del motor seguir una trayectoria angular de referencia de manera eficiente, minimizando errores y respondiendo adecuadamente a perturbaciones externas o cambios en la consigna. Para ello, es necesario comprender el comportamiento dinámico del sistema, lo cual se logra mediante un proceso de modelado, identificación y posterior diseño del controlador dentro del entorno de simulación, garantizando así un desempeño confiable y robusto.
+
+Para diseñar el lazo de control de posición del sistema, es esencial analizar cómo responde la posición angular del motor ante una entrada determinada. Esto requiere la implementación de un montaje experimental que permita observar y registrar la trayectoria de la posición del eje en el dominio del tiempo, con el fin de identificar las características dinámicas relevantes y diseñar un controlador que garantice un seguimiento preciso de la referencia.
+
+![Imagen de WhatsApp 2025-05-28 a las 19 24 23_bbcb1c8d](https://github.com/user-attachments/assets/8669aba3-4478-4906-af2f-ab4afb6bf21d)
+
+*Imagen 27. Configuración curva de Reacción*
+
+Una vez establecido el montaje, se define un intervalo de operación en el cual se aplica una señal de referencia y se registra la evolución de la posición angular. A partir de esta información, se identifican los parámetros que describen el comportamiento del sistema, los cuales son fundamentales para el cálculo de las ganancias del controlador de posición.
+
+![Imagen de WhatsApp 2025-05-21 a las 20 37 43_7aa8a007](https://github.com/user-attachments/assets/9fcc58a4-09fe-49b3-b3c8-fd8622114b96)
+
+*Imagen 28. Curva de Reacción*
+
+Durante esta etapa, se monitorea en tiempo real el desplazamiento angular del motor, lo que permite evaluar su respuesta ante diferentes condiciones de entrada. Estos datos sirven de base para ajustar adecuadamente el controlador, asegurando una respuesta estable, rápida y con mínimo error de seguimiento.
+
+![Imagen de WhatsApp 2025-05-28 a las 00 48 29_523b7a07](https://github.com/user-attachments/assets/520cec4e-2670-49cb-9809-4c069c41863e)
+
+*Imagen 29. Montaje Controlador Posición*
+
+Finalmente, el controlador de posición es implementado en el entorno de Simulink y conectado a la planta simulada. Utilizando herramientas de visualización como el scope, se analiza el comportamiento del sistema verificando que la posición del eje siga correctamente la señal de referencia, validando así el desempeño del controlador y la efectividad del diseño implementado.
+
+![Imagen de WhatsApp 2025-05-28 a las 00 48 29_7b05de6a](https://github.com/user-attachments/assets/4f59b31d-5081-47a5-bbe2-c5e81b3836bb)
+
+*Imagen 30. Respuesta con Controlador Integrado*
+
 ## 9. Conclusiones <a id='Conclusiones'></a>
 
 1. Sistema didáctico versátil y accesible:
